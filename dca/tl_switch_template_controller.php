@@ -6,6 +6,8 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
 
         'dataContainer' => 'Table',
 
+        'onsubmit_callback' => [ [ 'CatalogManager\CMSwitch\tl_switch_template_controller', 'setForeignId' ] ],
+
         'sql' => [
 
             'keys' => [
@@ -19,14 +21,16 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
 
         'sorting' => [
 
-            'mode' => 0,
+            'mode' => 2,
+            'flag' => 1,
+            'fields' => [ 'name' ],
             'panelLayout' => 'filter;sort,search,limit'
         ],
 
         'label' => [
 
             'showColumns' => true,
-            'fields' => [ 'id' ]
+            'fields' => [ 'name' ]
         ],
 
         'operations' => [
@@ -34,15 +38,8 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
             'edit' => [
 
                 'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['edit'],
-                'href' => 'act=edit',
+                'href' => 'act=edit&foreignId=' . \Input::get( 'fid' ),
                 'icon' => 'header.gif'
-            ],
-
-            'copy' => [
-
-                'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['copy'],
-                'href' => 'act=copy',
-                'icon' => 'copy.gif'
             ],
 
             'delete' => [
@@ -75,7 +72,7 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
 
     'palettes' => [
 
-        'default' => ''
+        'default' => '{general_settings},name,moduleId,icon;{template_settings},listTemplate,customTemplate;{pagination_legend},addPagination,perPage,offset;'
     ],
 
 
@@ -94,6 +91,143 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
         'fid' => [
 
             'sql' => "int(10) unsigned NOT NULL default '0'"
+        ],
+
+        'name' => [
+
+            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['name'],
+            'inputType' => 'text',
+
+            'eval' => [
+
+                'maxlength' => 128,
+                'doNotCopy' => true,
+                'tl_class' => 'w50',
+            ],
+
+            'search' => true,
+            'sorting' => true,
+            'exclude' => true,
+
+            'sql' => "varchar(128) NOT NULL default ''"
+        ],
+
+        'moduleId' => [
+
+            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['moduleId'],
+            'inputType' => 'select',
+
+            'eval' => [
+
+                'chosen' => true,
+                'tl_class' => 'w50',
+                'submitOnChange' => true,
+                'includeBlankOption' => true
+            ],
+
+            'options_callback' => [ 'CatalogManager\CMSwitch\tl_switch_template_controller', 'getModules' ],
+
+            'exclude' => true,
+            'sql' => "int(10) unsigned NOT NULL default '0'"
+        ],
+
+        'icon' => [
+
+            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['icon'],
+            'inputType' => 'fileTree',
+
+            'eval' => [
+
+                'fieldType' => 'radio',
+                'tl_class' => 'clr',
+            ],
+
+            'exclude' => true,
+            'sql' => "binary(16) NULL"
+        ],
+
+        'listTemplate' => [
+
+            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['listTemplate'],
+            'inputType' => 'select',
+
+            'eval' => [
+
+                'chosen' => true,
+                'maxlength' => 64,
+                'tl_class' => 'w50',
+                'includeBlankOption' => true
+            ],
+
+            'options_callback' => [ 'CatalogManager\CMSwitch\tl_switch_template_controller', 'getListTemplates' ],
+
+            'exclude' => true,
+            'sql' => "varchar(64) NOT NULL default ''"
+        ],
+
+        'customTemplate' => [
+
+            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['customTemplate'],
+            'inputType' => 'select',
+
+            'eval' => [
+
+                'chosen' => true,
+                'maxlength' => 64,
+                'tl_class' => 'w50',
+                'includeBlankOption' => true
+            ],
+
+            'options_callback' => [ 'CatalogManager\CMSwitch\tl_switch_template_controller', 'getCustomTemplates' ],
+
+            'exclude' => true,
+            'sql' => "varchar(64) NOT NULL default ''"
+        ],
+
+        'addPagination' => [
+
+            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['addPagination'],
+            'inputType' => 'checkbox',
+
+            'eval' => [
+
+                'tl_class' => 'clr'
+            ],
+
+            'exclude' => true,
+            'sql' => "char(1) NOT NULL default ''"
+        ],
+
+        'perPage' => [
+
+            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['perPage'],
+            'inputType' => 'text',
+            'default' => 0,
+
+            'eval' => [
+
+                'rgxp' => 'natural',
+                'tl_class' => 'w50'
+            ],
+
+            'exclude' => true,
+            'sql' => "smallint(5) unsigned NOT NULL default '0'"
+        ],
+
+        'offset' => [
+
+            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['offset'],
+            'inputType' => 'text',
+            'default' => 0,
+
+            'eval' => [
+
+                'rgxp' => 'natural',
+                'tl_class' => 'w50'
+            ],
+
+            'exclude' => true,
+            'sql' => "smallint(5) unsigned NOT NULL default '0'"
         ]
     ]
 ];
