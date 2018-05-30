@@ -7,14 +7,17 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['switchTemplateController'] = [
     'label' => &$GLOBALS['TL_LANG']['tl_content']['switchTemplateController'],
 
     'inputType' => 'dcaWizard',
-
     'foreignTable' => 'tl_switch_template_controller',
     'foreignField' => 'fid',
 
+    'params' => [
+
+        'fid' => \Input::get( 'id' )
+    ],
+
     'eval' => [
 
-        'fields' => [],
-        'headerFields' => [],
+        'fields' => [ 'name' ],
         'orderField' => 'id DESC',
 
         'listCallback' => [ 'CatalogManager\CMSwitch\tl_content', 'generateWizardList' ],
