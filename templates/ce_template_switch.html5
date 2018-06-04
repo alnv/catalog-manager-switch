@@ -1,1 +1,24 @@
-<h1>Switch</h1>
+<?php $this->extend('block_searchable'); ?>
+<?php $this->block('content'); ?>
+
+<?php if ( is_array( $this->controllers ) && !empty( $this->controllers ) ): ?>
+
+<nav>
+    <ul>
+    <?php foreach( $this->controllers as $arrController ): ?>
+        <li>
+            <a href="<?= $arrController['action'] ?>">
+                <?php if ( !empty( $arrController['icon'] ) ): ?>
+                    <img src="" alt="">
+                <?php endif; ?>
+                <?php if ( $arrController['name'] ): ?>
+                    <span><?= $arrController['name'] ?></span>
+                <?php endif; ?>
+            </a>
+        </li>
+    <?php endforeach; ?>
+    </ul>
+</nav>
+<?php endif; ?>
+
+<?php $this->endblock(); ?>
