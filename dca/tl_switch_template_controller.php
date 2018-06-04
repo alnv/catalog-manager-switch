@@ -72,9 +72,17 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
 
     'palettes' => [
 
-        'default' => '{general_settings},name,moduleId,icon;{template_settings},listTemplate,customTemplate;{pagination_legend},addPagination,perPage,offset;'
+        '__selector__' => [ 'overwritePagination', 'overwriteTableView', 'overwriteFastMode' ],
+
+        'default' => '{general_settings},name,moduleId,icon;{view_settings},overwriteTableView,overwriteFastMode;{template_settings},listTemplate,customTemplate;{pagination_legend},overwritePagination;'
     ],
 
+    'subpalettes' => [
+
+        'overwritePagination' => 'addPagination,perPage,offset',
+        'overwriteFastMode' => 'fastMode,preventFieldFromFastMode',
+        'overwriteTableView' => 'enableTableView,activeTableColumns'
+    ],
 
     'fields' => [
 
@@ -146,6 +154,98 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
             'sql' => "binary(16) NULL"
         ],
 
+        'overwriteTableView' => [
+
+            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['overwriteTableView'],
+            'inputType' => 'checkbox',
+
+            'eval' => [
+
+                'tl_class' => 'clr',
+                'submitOnChange' => true
+            ],
+
+            'exclude' => true,
+            'sql' => "char(1) NOT NULL default ''"
+        ],
+
+        'enableTableView' => [
+
+            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['enableTableView'],
+            'inputType' => 'checkbox',
+
+            'eval' => [
+
+                'tl_class' => 'clr'
+            ],
+
+            'exclude' => true,
+            'sql' => "char(1) NOT NULL default ''"
+        ],
+
+        'overwriteFastMode' => [
+
+            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['overwriteFastMode'],
+            'inputType' => 'checkbox',
+
+            'eval' => [
+
+                'tl_class' => 'clr',
+                'submitOnChange' => true
+            ],
+
+            'exclude' => true,
+            'sql' => "char(1) NOT NULL default ''"
+        ],
+
+        'fastMode' => [
+
+            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['fastMode'],
+            'inputType' => 'checkbox',
+
+            'eval' => [
+
+                'tl_class' => 'clr'
+            ],
+
+            'exclude' => true,
+            'sql' => "char(1) NOT NULL default ''"
+        ],
+
+        'preventFieldFromFastMode' => [
+
+            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['preventFieldFromFastMode'],
+            'inputType' => 'checkbox',
+
+            'eval' => [
+
+                'multiple' => true,
+                'tl_class' => 'clr'
+            ],
+
+            'options_callback' => [ 'CatalogManager\CMSwitch\tl_switch_template_controller', 'getFastModeFields' ],
+
+            'exclude' => true,
+            'sql' => "blob NULL"
+        ],
+
+        'activeTableColumns' => [
+
+            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['activeTableColumns'],
+            'inputType' => 'checkboxWizard',
+
+            'eval' => [
+
+                'multiple' => true,
+                'tl_class' => 'clr'
+            ],
+
+            'options_callback' => [ 'CatalogManager\CMSwitch\tl_switch_template_controller', 'getAllColumns' ],
+
+            'exclude' => true,
+            'sql' => "blob NULL"
+        ],
+
         'listTemplate' => [
 
             'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['listTemplate'],
@@ -182,6 +282,21 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
 
             'exclude' => true,
             'sql' => "varchar(64) NOT NULL default ''"
+        ],
+
+        'overwritePagination' => [
+
+            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['overwritePagination'],
+            'inputType' => 'checkbox',
+
+            'eval' => [
+
+                'tl_class' => 'clr',
+                'submitOnChange' => true
+            ],
+
+            'exclude' => true,
+            'sql' => "char(1) NOT NULL default ''"
         ],
 
         'addPagination' => [
