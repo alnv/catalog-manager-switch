@@ -2,17 +2,16 @@
 <?php $this->block('content'); ?>
 
 <?php if ( is_array( $this->controllers ) && !empty( $this->controllers ) ): ?>
-
-<nav>
+<nav class="switch-nav">
     <ul>
-    <?php foreach( $this->controllers as $arrController ): ?>
-        <li>
-            <a href="<?= $arrController['action'] ?>">
-                <?php if ( !empty( $arrController['icon'] ) ): ?>
-                    <img src="" alt="">
+    <?php foreach( $this->controllers as $arrSwitch ): ?>
+        <li class="switch-item<?= $arrSwitch['css'] ?>">
+            <a href="<?= $arrSwitch['action'] ?>">
+                <?php if ( !empty( $arrSwitch['icon'] ) ): ?>               
+                    <img src="<?= $arrSwitch['icon']['path'] ?>" alt="<?= $arrSwitch['icon']['meta']['title'] ?>">
                 <?php endif; ?>
-                <?php if ( $arrController['name'] ): ?>
-                    <span><?= $arrController['name'] ?></span>
+                <?php if ( $arrSwitch['name'] ): ?>
+                    <span><?= $arrSwitch['name'] ?></span>
                 <?php endif; ?>
             </a>
         </li>
