@@ -22,8 +22,8 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
         'sorting' => [
 
             'mode' => 2,
-            'flag' => 1,
-            'fields' => [ 'name' ],
+            'flag' => 2,
+            'fields' => [ 'id', 'name' ],
             'panelLayout' => 'filter;sort,search,limit'
         ],
 
@@ -38,7 +38,7 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
             'edit' => [
 
                 'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['edit'],
-                'href' => 'act=edit&foreignId=' . \Input::get( 'fid' ),
+                'href' => 'act=edit',
                 'icon' => 'header.gif'
             ],
 
@@ -74,7 +74,7 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
 
         '__selector__' => [ 'overwritePagination', 'overwriteTableView', 'overwriteFastMode' ],
 
-        'default' => '{general_settings},name,moduleId,icon,iconActive;{view_settings},overwriteTableView,overwriteFastMode;{template_settings},listTemplate,customTemplate;{pagination_legend},overwritePagination;'
+        'default' => '{general_settings},name,icon,iconActive;{view_settings},overwriteTableView,overwriteFastMode;{template_settings},listTemplate,customTemplate;{pagination_legend},overwritePagination;'
     ],
 
     'subpalettes' => [
@@ -111,6 +111,7 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
                 'maxlength' => 128,
                 'doNotCopy' => true,
                 'tl_class' => 'w50',
+                'mandatory' => true
             ],
 
             'search' => true,
@@ -118,25 +119,6 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
             'exclude' => true,
 
             'sql' => "varchar(128) NOT NULL default ''"
-        ],
-
-        'moduleId' => [
-
-            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['moduleId'],
-            'inputType' => 'select',
-
-            'eval' => [
-
-                'chosen' => true,
-                'tl_class' => 'w50',
-                'submitOnChange' => true,
-                'includeBlankOption' => true
-            ],
-
-            'options_callback' => [ 'CatalogManager\CMSwitch\tl_switch_template_controller', 'getModules' ],
-
-            'exclude' => true,
-            'sql' => "int(10) unsigned NOT NULL default '0'"
         ],
 
         'icon' => [

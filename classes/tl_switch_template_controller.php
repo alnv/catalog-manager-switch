@@ -11,7 +11,9 @@ class tl_switch_template_controller extends \Backend {
     public function setForeignId( \DataContainer $objDataContainer ) {
 
         $strId = $objDataContainer->id;
-        $strFid = \Input::get('foreignId') ? (int) \Input::get('foreignId') : 0;
+        $strFid = \Input::get('fid') ? (int) \Input::get('fid') : 0;
+
+
 
         $this->Database->prepare( 'UPDATE tl_switch_template_controller %s WHERE id = ?' )->set([ 'fid' => $strFid ])->execute( $strId );
     }
@@ -32,38 +34,23 @@ class tl_switch_template_controller extends \Backend {
     }
 
 
-    public function getModules() {
-
-        $arrReturn = [];
-
-        $objModules = $this->Database->prepare('SELECT * FROM tl_module WHERE `type` = ?')->execute( 'catalogUniversalView' );
-
-        if ( $objModules->numRows ) {
-
-            while ( $objModules->next() ) {
-
-                $arrReturn[ $objModules->id ] = $objModules->name;
-            }
-        }
-
-        return $arrReturn;
-    }
-
-
     public function getAllColumns( \DataContainer $objDataContainer ) {
 
         $arrReturn = [];
         $arrForbiddenTypes = [ 'upload' ];
-        $strModuleId = $objDataContainer->activeRecord->moduleId;
+        $strForeignId = $objDataContainer->activeRecord->fid;
 
-        if ( !$strModuleId ) return $arrReturn;
+        if ( !$strForeignId ) return $arrReturn;
 
-        $objModule = $this->Database->prepare('SELECT * FROM tl_module WHERE id = ?')->limit( 1 )->execute( $strModuleId );
+        $objContent = $this->Database->prepare( 'SELECT * FROM tl_content WHERE id = ?' )->limit( 1 )->execute( $strForeignId );
+
+        if ( !$objContent->switchModuleId ) return $arrReturn;
+
+        $objModule = $this->Database->prepare( 'SELECT * FROM tl_module WHERE id = ?' )->limit( 1 )->execute( $objContent->switchModuleId );
         $strTable = $objModule->catalogTablename;
 
         if ( !$strTable ) return $arrReturn;
         if ( !$this->Database->tableExists( $strTable ) ) return $arrReturn;
-
 
         $objCatalogFieldBuilder = new CatalogFieldBuilder();
         $objCatalogFieldBuilder->initialize( $strTable );
@@ -86,11 +73,15 @@ class tl_switch_template_controller extends \Backend {
     public function getFastModeFields( \DataContainer $objDataContainer ) {
 
         $arrReturn = [];
-        $strModuleId = $objDataContainer->activeRecord->moduleId;
+        $strForeignId = $objDataContainer->activeRecord->fid;
 
-        if ( !$strModuleId ) return $arrReturn;
+        if ( !$strForeignId ) return $arrReturn;
 
-        $objModule = $this->Database->prepare('SELECT * FROM tl_module WHERE id = ?')->limit( 1 )->execute( $strModuleId );
+        $objContent = $this->Database->prepare( 'SELECT * FROM tl_content WHERE id = ?' )->limit( 1 )->execute( $strForeignId );
+
+        if ( !$objContent->switchModuleId ) return $arrReturn;
+
+        $objModule = $this->Database->prepare('SELECT * FROM tl_module WHERE id = ?')->limit( 1 )->execute( $objContent->switchModuleId );
         $strTable = $objModule->catalogTablename;
 
         if ( !$strTable ) return $arrReturn;
