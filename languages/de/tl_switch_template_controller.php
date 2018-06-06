@@ -19,6 +19,7 @@ $GLOBALS['TL_LANG']['tl_switch_template_controller']['iconActive'] = [ 'Bild (Ak
 $GLOBALS['TL_LANG']['tl_switch_template_controller']['overwriteFastMode'] = [ 'Fast Mode überschreiben', 'Hier können Sie den FastMode überschreiben.' ];
 $GLOBALS['TL_LANG']['tl_switch_template_controller']['enableTableView'] = [ 'Als Tabelle darstellen', 'Alle Datensätze werden in einer Tabelle dargestellt.' ];
 $GLOBALS['TL_LANG']['tl_switch_template_controller']['activeTableColumns'] = [ 'Kopfzeilen auswählen', 'Hier können Sie Kopfzeilen für die Tabelle auswählen.' ];
+$GLOBALS['TL_LANG']['tl_switch_template_controller']['isDefault'] = [ 'Standard Aktiv', 'Dieser Switch ist immer ausgewählt, wenn kein anderer Switch Aktiv ist.' ];
 $GLOBALS['TL_LANG']['tl_switch_template_controller']['overwriteTableView'] = [ 'Tabellenansicht überschreiben', 'Hier können Sie die Tabellenansicht überschreiben.' ];
 $GLOBALS['TL_LANG']['tl_switch_template_controller']['preventFieldFromFastMode'] = [ 'Felder ausschließen', 'Hier können Sie die Felder vom "Fast Mode" ausschließen.' ];
 $GLOBALS['TL_LANG']['tl_switch_template_controller']['fastMode'] = [ 'Fast Mode', 'Hier können Sie den Fast Mode aktivieren. Folgende Elemente werden nicht gerendert: Datei-Upload und Kartenansicht.' ];
