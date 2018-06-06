@@ -31,8 +31,15 @@ class TemplateSwitchElement extends \ContentElement {
 
             while ( $objEntities->next() ) {
 
+                $blnActive = \Input::get( 'ctlgSwitch' ) && \Input::get( 'ctlgSwitch' ) == $objEntities->id ? true : false;
                 $arrSwitch = $objEntities->row();
-                $arrSwitch['icon'] = $this->getIcon( $arrSwitch['icon'] );
+
+                $strIcon = $arrSwitch['icon'] ?: '';
+
+                if ( $arrSwitch['iconActive'] && $blnActive ) $strIcon = $arrSwitch['iconActive'] ?: '';
+
+                $arrSwitch['css'] = $blnActive ? ' active' : '';
+                $arrSwitch['icon'] = $this->getIcon( $strIcon );
                 $arrSwitch['action'] = $this->generateActionAttribute( $arrSwitch['id'] );
 
                 $this->arrController[] = $arrSwitch;
@@ -45,13 +52,26 @@ class TemplateSwitchElement extends \ContentElement {
 
     protected function getIcon( $strSingleSrc ) {
 
-        if ( !$strSingleSrc ) return [];
+        $arrImage = [];
+
+        if ( !$strSingleSrc ) return $arrImage;
 
         $objFile = \FilesModel::findByUuid( $strSingleSrc );
 
-        if ( $objFile !== null ) return $objFile->row();
+        if ( $objFile !== null ) {
 
-        return [];
+            $arrImage = $objFile->row();
+
+            if ( !$arrImage['meta'] ) {
+
+                $arrImage['meta'] = [
+
+                    'title' => ''
+                ];
+            }
+        }
+
+        return $arrImage;
     }
 
 
