@@ -74,7 +74,7 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
 
         '__selector__' => [ 'overwritePagination', 'overwriteTableView', 'overwriteFastMode' ],
 
-        'default' => '{general_settings},name,moduleId,icon;{view_settings},overwriteTableView,overwriteFastMode;{template_settings},listTemplate,customTemplate;{pagination_legend},overwritePagination;'
+        'default' => '{general_settings},name,moduleId,icon,iconActive;{view_settings},overwriteTableView,overwriteFastMode;{template_settings},listTemplate,customTemplate;{pagination_legend},overwritePagination;'
     ],
 
     'subpalettes' => [
@@ -146,13 +146,35 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
 
             'eval' => [
 
-                'fieldType' => 'radio',
+                'files' => true,
+                'filesOnly' => true,
                 'tl_class' => 'clr',
+                'fieldType' => 'radio',
+                'extensions' => $GLOBALS['TL_CONFIG']['validImageTypes']
             ],
 
             'exclude' => true,
             'sql' => "binary(16) NULL"
         ],
+
+        'iconActive' => [
+
+            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['iconActive'],
+            'inputType' => 'fileTree',
+
+            'eval' => [
+
+                'files' => true,
+                'filesOnly' => true,
+                'tl_class' => 'clr',
+                'fieldType' => 'radio',
+                'extensions' => $GLOBALS['TL_CONFIG']['validImageTypes']
+            ],
+
+            'exclude' => true,
+            'sql' => "binary(16) NULL"
+        ],
+
 
         'overwriteTableView' => [
 
