@@ -26,7 +26,7 @@ class TemplateSwitcher extends \Frontend {
 
     public function switchMainTemplate( $strTemplate, $objModule ) {
 
-        if ( $this->arrActiveController['moduleId'] !==  $objModule->id ) return $strTemplate;
+        // @todo check module id
 
         return $this->arrActiveController['customTemplate'] ?: $strTemplate;
     }
@@ -34,7 +34,7 @@ class TemplateSwitcher extends \Frontend {
 
     public function switchView( &$objModule ) {
 
-        if ( $this->arrActiveController['moduleId'] !==  $objModule->id ) return null;
+        // @todo check module id
 
         if ( $this->arrActiveController['overwritePagination'] ) {
 
