@@ -25,7 +25,7 @@ class TemplateSwitchElement extends \ContentElement {
 
     protected function compile() {
 
-        $objEntities = $this->Database->prepare( 'SELECT * FROM tl_switch_template_controller WHERE fid = ?' )->execute( $this->id );
+        $objEntities = $this->Database->prepare( 'SELECT * FROM tl_switch_template_controller WHERE fid = ? ORDER BY id ASC' )->execute( $this->id );
 
         if ( $objEntities->numRows ) {
 
@@ -80,10 +80,7 @@ class TemplateSwitchElement extends \ContentElement {
         $strBind = '&';
         $strUrl = ampersand( \Environment::get('indexFreeRequest') );
 
-        if ( strpos( $strUrl, 'ctlgSwitch' ) !== false ) {
-
-            return preg_replace( '/ctlgSwitch=[^&]*/i', ( 'ctlgSwitch=' . $strId ), $strUrl );
-        }
+        if ( strpos( $strUrl, 'ctlgSwitch' ) !== false ) return preg_replace( '/ctlgSwitch=[^&]*/i', ( 'ctlgSwitch=' . $strId ), $strUrl );
 
         if ( strpos( $strUrl, '?' ) === false )  $strBind = '?';
 
