@@ -1,6 +1,6 @@
 <?php
 
-$GLOBALS['TL_DCA']['tl_content']['palettes']['catalogTemplateSwitcher'] = '{type_legend},type,headline;{switch_template_legend},switchTemplateController;{template_legend:hide},customCatalogElementTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space;{invisible_legend:hide},invisible,start,stop';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['catalogTemplateSwitcher'] = '{type_legend},type,headline;{switch_template_legend},switchModuleId,switchTemplateController;{template_legend:hide},customCatalogElementTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space;{invisible_legend:hide},invisible,start,stop';
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['switchTemplateController'] = [
 
@@ -17,9 +17,29 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['switchTemplateController'] = [
 
     'eval' => [
 
-        'fields' => [ 'name' ],
-        'orderField' => 'id DESC',
-
-        'listCallback' => [ 'CatalogManager\CMSwitch\tl_content', 'generateWizardList' ],
+        'tl_class' => 'clr',
+        'showOperations' => true,
+        'orderField' => 'id ASC',
+        'fields' => [ 'id', 'name' ]
     ]
+];
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['switchModuleId'] = [
+
+    'label' => &$GLOBALS['TL_LANG']['tl_content']['switchModuleId'],
+    'inputType' => 'select',
+
+    'eval' => [
+
+        'chosen' => true,
+        'mandatory' => true,
+        'tl_class' => 'clr w50',
+        'submitOnChange' => true,
+        'includeBlankOption' => true
+    ],
+
+    'options_callback' => [ 'CatalogManager\CMSwitch\tl_content', 'getModules' ],
+
+    'exclude' => true,
+    'sql' => "int(10) unsigned NOT NULL default '0'"
 ];

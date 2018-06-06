@@ -16,4 +16,22 @@ class tl_content extends \Backend {
 
         return '<ul id="sort_' . $strId . '">' . $strReturn . '</ul>';
     }
+
+
+    public function getModules() {
+
+        $arrReturn = [];
+
+        $objModules = $this->Database->prepare('SELECT * FROM tl_module WHERE `type` = ?')->execute( 'catalogUniversalView' );
+
+        if ( $objModules->numRows ) {
+
+            while ( $objModules->next() ) {
+
+                $arrReturn[ $objModules->id ] = $objModules->name;
+            }
+        }
+
+        return $arrReturn;
+    }
 }
