@@ -15,7 +15,6 @@ $GLOBALS['TL_LANG']['tl_switch_template_controller']['name'] = [ 'Bezeichnung', 
 $GLOBALS['TL_LANG']['tl_switch_template_controller']['listTemplate'] = [ 'Listen-Template', 'Bitte wählen Sie ein Template aus.' ];
 $GLOBALS['TL_LANG']['tl_switch_template_controller']['customTemplate'] = [ 'Haupt-Template', 'Bitte wählen Sie ein Template aus.' ];
 $GLOBALS['TL_LANG']['tl_switch_template_controller']['icon'] = [ 'Bild', 'Bitte wählen Sie ein Bild für den Navigationspunkt aus.' ];
-$GLOBALS['TL_LANG']['tl_switch_template_controller']['moduleId'] = [ 'Frontend Modul', 'Bitte wählen Sie das passende Frontend Modul aus.' ];
 $GLOBALS['TL_LANG']['tl_switch_template_controller']['overwriteFastMode'] = [ 'Fast Mode überschreiben', 'Hier können Sie den FastMode überschreiben.' ];
 $GLOBALS['TL_LANG']['tl_switch_template_controller']['enableTableView'] = [ 'Als Tabelle darstellen', 'Alle Datensätze werden in einer Tabelle dargestellt.' ];
 $GLOBALS['TL_LANG']['tl_switch_template_controller']['activeTableColumns'] = [ 'Kopfzeilen auswählen', 'Hier können Sie Kopfzeilen für die Tabelle auswählen.' ];
