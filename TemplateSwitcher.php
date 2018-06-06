@@ -43,16 +43,8 @@ class TemplateSwitcher extends \Frontend {
             $objModule->setPagination( $this->arrActiveController['addPagination'] );
         }
 
-        if ( $this->arrActiveController['overwriteFastMode'] ) {
-
-            $objModule->setFastMode( $this->arrActiveController['fastMode'], $this->arrActiveController['preventFieldFromFastMode'] );
-        }
-
-        if ( $this->arrActiveController['overwriteTableView'] ) {
-
-            $objModule->setTableView( $this->arrActiveController['enableTableView'], $this->arrActiveController['activeTableColumns'] );
-        }
-
-        $objModule->strTemplate = $this->arrActiveController['listTemplate'] ?: $objModule->strTemplate;
+        if ( $this->arrActiveController['listTemplate'] ) $objModule->setTemplate( $this->arrActiveController['listTemplate'] );
+        if ( $this->arrActiveController['overwriteFastMode'] ) $objModule->setFastMode( $this->arrActiveController['fastMode'], $this->arrActiveController['preventFieldFromFastMode'] );
+        if ( $this->arrActiveController['overwriteTableView'] ) $objModule->setTableView( $this->arrActiveController['enableTableView'], $this->arrActiveController['activeTableColumns'] );
     }
 }
