@@ -38,6 +38,12 @@ class TemplateSwitchElement extends \ContentElement {
 
                 if ( $arrSwitch['iconActive'] && $blnActive ) $strIcon = $arrSwitch['iconActive'] ?: '';
 
+                if ( !\Input::get( 'ctlgSwitch' ) && $arrSwitch['isDefault'] ) {
+
+                    $blnActive = true;
+                    $strIcon = $arrSwitch['iconActive'] ?: $arrSwitch['icon'];
+                }
+
                 $arrSwitch['css'] = $blnActive ? ' active' : '';
                 $arrSwitch['icon'] = $this->getIcon( $strIcon );
                 $arrSwitch['action'] = $this->generateActionAttribute( $arrSwitch['id'] );
