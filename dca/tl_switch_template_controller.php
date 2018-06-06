@@ -74,7 +74,7 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
 
         '__selector__' => [ 'overwritePagination', 'overwriteTableView', 'overwriteFastMode' ],
 
-        'default' => '{general_settings},name,icon,iconActive;{view_settings},overwriteTableView,overwriteFastMode;{template_settings},listTemplate,customTemplate;{pagination_legend},overwritePagination;'
+        'default' => '{general_settings},name,isDefault,icon,iconActive;{view_settings},overwriteTableView,overwriteFastMode;{template_settings},listTemplate,customTemplate;{pagination_legend},overwritePagination;'
     ],
 
     'subpalettes' => [
@@ -157,6 +157,19 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
             'sql' => "binary(16) NULL"
         ],
 
+        'isDefault' => [
+
+            'label' => &$GLOBALS['TL_LANG']['tl_switch_template_controller']['isDefault'],
+            'inputType' => 'checkbox',
+
+            'eval' => [
+
+                'tl_class' => 'w50 m12',
+            ],
+
+            'exclude' => true,
+            'sql' => "char(1) NOT NULL default ''"
+        ],
 
         'overwriteTableView' => [
 
