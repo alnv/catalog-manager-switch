@@ -25,7 +25,12 @@ class TemplateSwitchElement extends \ContentElement {
 
     protected function compile() {
 
+        $strPerPage = '';
+        $strPage = 'page_e' . $this->switchModuleId;
         $objEntities = $this->Database->prepare( 'SELECT * FROM tl_switch_template_controller WHERE fid = ? ORDER BY id ASC' )->execute( $this->id );
+        $objModule = $this->Database->prepare( 'SELECT * FROM tl_module WHERE id = ?' )->limit( 1 )->execute( $this->switchModuleId );
+
+        if ( $objModule->numRows ) $strPerPage = $objModule->catalogPerPage;
 
         if ( $objEntities->numRows ) {
 
@@ -33,8 +38,9 @@ class TemplateSwitchElement extends \ContentElement {
 
                 $blnActive = \Input::get( 'ctlgSwitch' ) && \Input::get( 'ctlgSwitch' ) == $objEntities->id ? true : false;
                 $arrSwitch = $objEntities->row();
-
                 $strIcon = $arrSwitch['icon'] ?: '';
+
+                if ( $arrSwitch['isDefault'] && !$arrSwitch['perPage'] && (int) \Input::get( $strPage ) > 1 ) $arrSwitch['perPage'] = $strPerPage;
 
                 if ( $arrSwitch['iconActive'] && $blnActive ) $strIcon = $arrSwitch['iconActive'] ?: '';
 
@@ -46,7 +52,7 @@ class TemplateSwitchElement extends \ContentElement {
 
                 $arrSwitch['css'] = $blnActive ? ' active' : '';
                 $arrSwitch['icon'] = $this->getIcon( $strIcon );
-                $arrSwitch['action'] = $this->generateActionAttribute( $arrSwitch['id'] );
+                $arrSwitch['action'] = $this->generateActionAttribute( $arrSwitch['id'], $strPerPage == $arrSwitch['perPage'], $strPage );
 
                 $this->arrController[] = $arrSwitch;
             }
@@ -81,10 +87,17 @@ class TemplateSwitchElement extends \ContentElement {
     }
 
 
-    protected function generateActionAttribute( $strId ) {
+    protected function generateActionAttribute( $strId, $blnPagination, $strPage ) {
 
         $strBind = '&';
         $strUrl = ampersand( \Environment::get('indexFreeRequest') );
+
+        if ( strpos( $strUrl, $strPage ) !== false && !$blnPagination ) {
+
+            $strReplace = $strPage . '=1';
+            $strPageToReplace = $strPage . '=' . \Input::get( $strPage );
+            $strUrl = str_replace( $strPageToReplace, $strReplace, $strUrl );
+        }
 
         if ( strpos( $strUrl, 'ctlgSwitch' ) !== false ) return preg_replace( '/ctlgSwitch=[^&]*/i', ( 'ctlgSwitch=' . $strId ), $strUrl );
 
