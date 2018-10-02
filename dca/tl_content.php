@@ -12,7 +12,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['switchTemplateController'] = [
 
     'params' => [
 
-        'fid' => \Input::get( 'id' )
+        'fid' => \Input::get('id')
     ],
 
     'eval' => [

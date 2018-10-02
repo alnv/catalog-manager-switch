@@ -24,7 +24,8 @@ $GLOBALS['TL_DCA']['tl_switch_template_controller'] = [
             'mode' => 2,
             'flag' => 2,
             'fields' => [ 'id', 'name' ],
-            'panelLayout' => 'filter;sort,search,limit'
+            'panelLayout' => 'filter;sort,search,limit',
+            'filter' => [ [ 'fid=?', \Input::get('id') ] ]
         ],
 
         'label' => [
