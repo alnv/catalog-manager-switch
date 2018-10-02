@@ -25,12 +25,12 @@
     "terminal42/dcawizard": "~2.4"
   },
   "replace": {
-    "contao-legacy/catalog-manager-wishlist": "self.version"
+    "contao-legacy/catalog-manager-switch": "self.version"
   },
   "extra": {
     "contao": {
       "sources": {
-        "": "system/modules/catalog-manager-wishlist"
+        "": "system/modules/catalog-manager-switch"
       }
     }
   }
